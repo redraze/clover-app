@@ -2,12 +2,9 @@ import { useState } from 'react';
 import AuthForm from '@/components/AuthForm';
 import { Image, Text, View } from 'react-native';
 import { useToast, Toast, ToastDescription } from "@/components/ui/toast";
+import { UserType } from '@/types/types';
+import { useSessionContext } from '@/state/SessionContext';
 	
-type UserType = {
-  name: string,
-  role: 'admin' | 'non-admin',
-};
-
 type FormType = 'login' | 'signup';
 
 // returns info about user
@@ -22,6 +19,8 @@ export const callLoginAPI = async (user: UserType) => {
 };
 
 export default function AuthScreen() {
+  const signIn = useSessionContext((state: any) => state.signIn);
+
   const [user, setUser] = useState<UserType | undefined>();
   const [formState, setFormState] = useState<FormType>('login');
 
@@ -67,9 +66,8 @@ export default function AuthScreen() {
     };
 
     const { token } = await callLoginAPI(user);
-
-    // TODO: sign user in
     // store token in local cache
+    signIn(token);
   }
 
   return (<>

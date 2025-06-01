@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import AuthForm from '@/components/AuthForm';
-import { View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { useToast, Toast, ToastDescription } from "@/components/ui/toast";
-import React from "react";
 	
 type UserType = {
   name: string,
   role: 'admin' | 'non-admin',
 };
+
+type FormType = 'login' | 'signup';
 
 // returns info about user
 export const callLoginAPI = async (user: UserType) => {
@@ -22,17 +23,18 @@ export const callLoginAPI = async (user: UserType) => {
 
 export default function AuthScreen() {
   const [user, setUser] = useState<UserType | undefined>();
+  const [formState, setFormState] = useState<FormType>('login');
 
   const toast = useToast();
-  const [toastId, setToastId] = React.useState(0);
-  const handleToast = () => {
+  const [toastId, setToastId] = useState(0);
+  const handleToast = (msg: string) => {
       // @ts-ignore
       if (!toast.isActive(toastId)) {
-          showNewToast();
+          showNewToast(msg);
       }
   };
   
-  const showNewToast = () => {
+  const showNewToast = (msg: string) => {
     const newId = Math.random();
     setToastId(newId);
     toast.show({
@@ -44,7 +46,7 @@ export default function AuthScreen() {
         const uniqueToastId = "toast-" + id;
         return (
             <Toast nativeID={uniqueToastId} action="muted" variant="solid" >
-              <ToastDescription>Please select a login.</ToastDescription>
+              <ToastDescription>{msg}</ToastDescription>
             </Toast>
         );
       },
@@ -52,9 +54,15 @@ export default function AuthScreen() {
   }
 
   const onSubmit = async () => {
+    // disable signup
+    if (formState === 'signup') {
+      handleToast('Registration unavailable.');
+      return;
+    };
+
     // form validation
     if (!user) {
-      handleToast();
+      handleToast('Please select a login.');
       return;
     };
 
@@ -64,10 +72,24 @@ export default function AuthScreen() {
     // store token in local cache
   }
 
-  return (
-    <View style={{ margin: 'auto' }}>
-      {/* TODO: backsplash */}
-      <AuthForm setUser={setUser} onSubmit={onSubmit} />
+  return (<>
+    {/* backsplash */}
+    <View style={{ height: 250, width: '100%' }}>
+      <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: 'auto' }}>
+        <View style={{ margin: 'auto' }}>
+          <Image 
+            style={{ height: 80, width: 80 }}
+            source={require('@/assets/tower.png')}
+          />
+        </View>
+
+        <Text style={{ fontSize: 35, marginLeft: 20, marginVertical: 'auto' }}>Tower Comm</Text>
+      </View>
     </View>
-  )
+
+    {/* form */}
+    <View style={{ marginHorizontal: 'auto', flex: 1, width: 300 }}>
+      <AuthForm setUser={setUser} formState={formState} setFormState={setFormState} onSubmit={onSubmit} />
+    </View>
+  </>)
 }

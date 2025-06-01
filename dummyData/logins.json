@@ -1,0 +1,27 @@
+{
+    "logins": [
+        {
+            "user": "AT&T (admin)",
+            "name": "at&t",
+            "role": "admin"
+        },
+
+        {
+            "user": "AT&T (non-admin)",
+            "name": "at&t",
+            "role": "non-admin"
+        },
+
+        {
+            "user": "Verizon (admin)",
+            "name": "verizon",
+            "role": "admin"
+        },
+
+        {
+            "user": "T-Mobile (admin)",
+            "name": "t-mobile",
+            "role": "non-admin"
+        }
+    ]
+}

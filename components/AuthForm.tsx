@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { View } from 'react-native';
 import { UserDrowpdown } from './UserDropdown';
 import { Input, InputField } from "@/components/ui/input"
@@ -6,14 +5,13 @@ import { FormControl } from "@/components/ui/form-control"
 import { Link, LinkText } from "@/components/ui/link"
 import { Button, ButtonText } from "@/components/ui/button"
 
-export default function AuthForm({ setUser, onSubmit }: any) {
-    const [formState, setFormState] = useState<'login' | 'signup'>('login');
+export default function AuthForm({ setUser, formState, setFormState, onSubmit }: any) {
     const toggleFormState = () => {
         if (formState === 'login') setFormState('signup');
         if (formState === 'signup') setFormState('login');
     };
 
-    return (<>
+    return (
         <View>
             <UserDrowpdown setUser={setUser} formState={formState} />
 
@@ -50,5 +48,5 @@ export default function AuthForm({ setUser, onSubmit }: any) {
             </Link>
 
         </View>
-    </>)
-}
+    );
+};

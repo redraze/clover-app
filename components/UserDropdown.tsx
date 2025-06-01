@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { ChevronDownIcon } from "@/components/ui/icon"
 import { Platform, View } from "react-native";
+import data from '@/dummyData/logins.json';
 
 const web = Platform.OS === 'web';
 
@@ -23,21 +24,14 @@ export function UserDrowpdown({ setUser, formState }: any) {
 
     return (
         <Select onValueChange={onValueChange} isDisabled={formState === 'signup'}>
-            {
-                // separated styles because of an issue with gluestackui SelectInput component
-                web
-                    ? <SelectTrigger variant="outline" size="xl">
-                            <SelectInput placeholder="Select Login"/>
-                            <SelectIcon className="mr-3" as={ChevronDownIcon} />
-                    </SelectTrigger>
-
-                    : <SelectTrigger variant="outline" size="xl" style={{ flex: 1, flexDirection: 'row', marginBottom: 10, padding: 20 }}>
-                        <View style={{ height: 50 }}>
-                            <SelectInput placeholder="Select Login"/>
-                        </View>
-                        { web ? <SelectIcon className="mr-3" as={ChevronDownIcon} /> : <></> }
-                    </SelectTrigger>
-            }
+            <View style={{ height: 50, marginBottom: 10 }}>
+                <SelectTrigger variant="outline" size="xl" style={!web && { flex: 1, flexDirection: 'row' }}>
+                    <SelectInput placeholder={ formState === 'login' ? "Select Login" : "username" }/>
+                    { formState === 'login' && 
+                        <SelectIcon className="mr-3" as={ChevronDownIcon} style={!web && { marginLeft: 'auto' }}/>
+                    }
+                </SelectTrigger>
+            </View>
 
             <SelectPortal>
                 <SelectBackdrop/>
@@ -46,10 +40,21 @@ export function UserDrowpdown({ setUser, formState }: any) {
                         <SelectDragIndicator />
                     </SelectDragIndicatorWrapper>
 
-                    <SelectItem label="AT&T (admin)" value={'{"name":"at&t", "role":"admin"}'} />
+                    {
+                        data.logins.map(({ user, name, role }) => {
+                            return (
+                                <SelectItem 
+                                    label={user} 
+                                    value={`{"name":"${name}", "role":"${role}"}`} 
+                                />
+                            );
+                        })
+                    }
+
+                    {/* <SelectItem label="AT&T (admin)" value={'{"name":"at&t", "role":"admin"}'} />
                     <SelectItem label="AT&T (non-admin)" value={'{"name":"at&t", "role":"non-admin"}'} />
                     <SelectItem label="Verizon (admin)" value={'{"name":"verizon", "role":"admin"}'} />
-                    <SelectItem label="T-Mobile (non-admin)" value={'{"name":"t-mobile", "role":"non-admin"}'} />
+                    <SelectItem label="T-Mobile (non-admin)" value={'{"name":"t-mobile", "role":"non-admin"}'} /> */}
                 </SelectContent>
             </SelectPortal>
         </Select>

@@ -4,17 +4,25 @@ import { Image, Text, View } from 'react-native';
 import { useToast, Toast, ToastDescription } from "@/components/ui/toast";
 import { UserType } from '@/types/types';
 import { useSessionContext } from '@/state/SessionContext';
+import { enterprises } from '@/dummyData/enterprises.json';
 	
 type FormType = 'login' | 'signup';
 
 // returns info about user
 export const callLoginAPI = async (user: UserType) => {
-  return {
-    token: {
-      id: "xxx-xxx", // session id
-      name: user.name,
-      enterprise: user.enterprise,
-      role: user.role,
+  // get enterpise id of logged in enterprise user
+	const enterpise = enterprises.find(({ enterprise }) => (enterprise === user.enterprise))
+	if (!enterpise) return { data: null };
+
+  return { 
+    data: {
+      token: {
+        id: "xxx-xxx", // session id
+        name: user.name,
+        enterprise: user.enterprise,
+        enterprise_id: enterpise.id,
+        role: user.role,
+      }
     }
   }
 };
@@ -66,9 +74,10 @@ export default function AuthScreen() {
       return;
     };
 
-    const { token } = await callLoginAPI(user);
+    const { data } = await callLoginAPI(user);
+    if (!data) return;
     // store token in local cache
-    signIn(token);
+    signIn(data.token);
   }
 
   return (<>

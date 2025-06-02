@@ -1,0 +1,29 @@
+{
+    "towers": [
+        {
+            "id": 0,
+            "region": "US West",
+            "state": "WA"
+        },
+        {
+            "id": 1,
+            "region": "US West",
+            "state": "CA"
+        },
+        {
+            "id": 2,
+            "region": "US East",
+            "state": "NY"
+        },
+        {
+            "id": 3,
+            "region": "US East",
+            "state": "FL"
+        },
+        {
+            "id": 4,
+            "region": "US Central",
+            "state": "CO"
+        }
+    ]
+}

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { ChevronDownIcon } from "@/components/ui/icon"
 import { Platform, View } from "react-native";
-import data from '@/dummyData/logins.json';
+import { logins } from '@/dummyData/logins.json';
 import uuid from 'react-native-uuid';
 
 const web = Platform.OS === 'web';
@@ -42,7 +42,7 @@ export function UserDrowpdown({ setUser, formState }: any) {
                     </SelectDragIndicatorWrapper>
 
                     {
-                        data.logins.map(({ name, enterprise, role }) => {
+                        logins.map(({ name, enterprise, role }) => {
                             return (
                                 <SelectItem 
                                     key={uuid.v4()}

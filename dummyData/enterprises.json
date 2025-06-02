@@ -1,0 +1,16 @@
+{
+    "enterprises": [
+        {
+            "enterprise": "at&t",
+            "id": 0
+        },
+        {
+            "enterprise": "verizon",
+            "id": 1
+        },
+        {
+            "enterprise": "t-mobile",
+            "id": 2
+        }
+    ]
+}

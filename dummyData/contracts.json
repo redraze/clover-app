@@ -1,0 +1,85 @@
+{
+    "contracts": [
+        {
+            "enterprise_id": 0,
+            "tower_id": 0,
+            "allowedOS": {
+                "iOS": true,
+                "web": false, 
+                "android": true
+            }
+        },
+        {
+            "enterprise_id": 0,
+            "tower_id": 2,
+            "allowedOS": {
+                "iOS": false,
+                "web": true, 
+                "android": false
+            }
+        },
+        {
+            "enterprise_id": 0,
+            "tower_id": 3,
+            "allowedOS": {
+                "iOS": false,
+                "web": true, 
+                "android": true
+            }
+        },
+        {
+            "enterprise_id": 1,
+            "tower_id": 0,
+            "allowedOS": {
+                "iOS": true,
+                "web": true, 
+                "android": false
+            }
+        },
+        {
+            "enterprise_id": 1,
+            "tower_id": 4,
+            "allowedOS": {
+                "iOS": false,
+                "web": false, 
+                "android": false
+            }
+        },
+        {
+            "enterprise_id": 2,
+            "tower_id": 1,
+            "allowedOS": {
+                "iOS": true,
+                "web": true, 
+                "android": true
+            }
+        },
+        {
+            "enterprise_id": 2,
+            "tower_id": 2,
+            "allowedOS": {
+                "iOS": true,
+                "web": false, 
+                "android": true
+            }
+        },
+        {
+            "enterprise_id": 2,
+            "tower_id": 3,
+            "allowedOS": {
+                "iOS": false,
+                "web": true, 
+                "android": false
+            }
+        },
+        {
+            "enterprise_id": 2,
+            "tower_id": 4,
+            "allowedOS": {
+                "iOS": false,
+                "web": false, 
+                "android": false
+            }
+        }
+    ]
+}

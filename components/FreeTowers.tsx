@@ -12,6 +12,8 @@ import {
   TableData,
 } from "@/components/ui/table"
 import { Button, ButtonText } from "@/components/ui/button"
+import uuid from 'react-native-uuid';
+import { ScrollView } from "react-native";
 
 const callContractTowersApi = async (token: TokenType) => {
     const towerData: FreeTowerType = {};
@@ -49,7 +51,7 @@ export default function FreeTowers() {
         })();
     }, []);
 
-    return (<>
+    return (<ScrollView horizontal={true} contentContainerStyle={{ flex: 1 }}>
         <Table className="w-full">
 
             { freeTowers && 
@@ -66,9 +68,9 @@ export default function FreeTowers() {
                 { freeTowers
                     ? Object.entries(freeTowers).map(([ id, { region, state } ]) => {
                         return (
-                            <TableRow>
-                                <TableData>{region}</TableData>
-                                <TableData>{state}</TableData>
+                            <TableRow key={uuid.v4()}>
+                                <TableData style={{ margin: 'auto' }}>{region}</TableData>
+                                <TableData style={{ margin: 'auto' }}>{state}</TableData>
                                 <TableData>
                                     <ContractButton id={id} />
                                 </TableData>
@@ -81,7 +83,7 @@ export default function FreeTowers() {
                 }
             </TableBody>
         </Table>
-    </>);
+    </ScrollView>);
 };
 
 function ContractButton({ id }: any) {
@@ -95,7 +97,7 @@ function ContractButton({ id }: any) {
     };
 
     return (
-        <Button size="md" variant="solid" action="primary" onPress={sendRequest} disabled={disabled}>
+        <Button size="md" variant={ disabled ? "solid" : "outline"} action="primary" onPress={sendRequest} disabled={disabled}>
             <ButtonText>{text}</ButtonText>
         </Button>
     );

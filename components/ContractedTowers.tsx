@@ -11,8 +11,9 @@ import {
   TableRow,
   TableData,
 } from "@/components/ui/table"
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import Switch from "./Switch";
+import uuid from 'react-native-uuid';
 
 const callContractTowersApi = async (token: TokenType) => {
     const towerData: ContractedTowerType = {};
@@ -51,7 +52,7 @@ export default function ContractedTowers() {
         })();
     }, []);
 
-    return (<>
+    return (<ScrollView horizontal={true} contentContainerStyle={{ flex: 1 }}>
         <Table className="w-full">
 
             { contractedTowers && 
@@ -68,21 +69,21 @@ export default function ContractedTowers() {
                 { contractedTowers
                     ? Object.entries(contractedTowers).map(([ id, { allowedOS, region, state } ]) => {
                         return (
-                            <TableRow>
-                                <TableData>{region}</TableData>
-                                <TableData>{state}</TableData>
-                                <TableData>
+                            <TableRow key={uuid.v4()}>
+                                <TableData style={{ margin: 'auto' }}>{region}</TableData>
+                                <TableData style={{ margin: 'auto' }}>{state}</TableData>
+                                <TableData style={{ margin: 'auto' }}>
                                     {
                                         ['web', 'iOS', 'android'].map((OS) => {
                                             const allowed = allowedOS[OS];
                                             return (
-                                                <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                                                    <Text style={{ marginRight: 10 }}>{OS}</Text>
+                                                <View style={{ flexDirection: 'row', marginBottom: 10, alignItems: 'center' }} key={uuid.v4()}>
                                                     <Switch 
                                                         defaultValue={!allowed}
                                                         // TODO: conditionally call mutation API based on role
                                                         // onToggle={() => {}}
                                                     />
+                                                    <Text style={{ marginLeft: 10 }}>{OS}</Text>
                                                 </View>
                                             )
                                         })
@@ -97,5 +98,5 @@ export default function ContractedTowers() {
                 }
             </TableBody>
         </Table>
-    </>);
+    </ScrollView>);
 };

@@ -30,8 +30,8 @@ export function TopBar() {
 
     return (
         <View style={{ paddingTop: insets.top }}>
-            <View style={[ styles.container, !web && { borderTopWidth: 4 } ]}>
-                <Button onPress={navigateHome} style={{ ...styles.homeButton, backgroundColor: 'transparent' }}>
+            <View style={styles.container}>
+                <Button onPress={navigateHome} style={{ ...styles.homeButton, backgroundColor: 'white' }}>
                     <Image 
                         style={{ height: 40, width: 40 }}
                         source={require('@/assets/tower.png')}
@@ -39,7 +39,7 @@ export function TopBar() {
                 </Button>
 
                 <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: web ? 24 : 18, fontWeight: 600, margin: 'auto' }}>{name}</Text>
+                    <Text style={{ fontSize: web ? 24 : 18, fontWeight: 600, margin: 'auto', color: 'white' }}>{name}</Text>
                 </View>
 
                 {/* logout popover */}
@@ -50,7 +50,7 @@ export function TopBar() {
                     onOpen={handleOpen}
                     placement="bottom" size="md" 
                     trigger={(triggerProps) => (
-                        <Button {...triggerProps} style={{ backgroundColor: 'transparent' }}>
+                        <Button {...triggerProps} style={{ backgroundColor: 'white' }}>
                             <Icon as={SettingsIcon} className="w-10 h-10" />
                         </Button>
                     )}
@@ -73,8 +73,9 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row', 
         alignItems: 'center', 
-        paddingVertical: 5, 
+        paddingVertical: 10, 
         paddingHorizontal: 10,
+        backgroundColor: '#121212',
     },
 
     homeButton: {

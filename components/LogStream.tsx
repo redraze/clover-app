@@ -8,9 +8,26 @@ import {
 } from "@/components/ui/table"
 import uuid from 'react-native-uuid';
 import { ScrollView } from "react-native";
+import { logs } from '@/dummyData/logs.json';
+import { useEffect } from "react";
+import { useLogsContext } from "@/state/LogsContext";
 import { LogType } from "@/types/types";
 
-export default function LogStream({ logs }: { logs: LogType[] }) {
+const callLogsApi = async () => {
+    return { data: logs }
+};
+
+export default function LogStream() {
+    const logs: LogType[] = useLogsContext((state: any) => state.logs);
+    const setLogs = useLogsContext((state: any) => state.setLogs);
+
+    useEffect(() => {
+        (async () => {
+            const { data } = await callLogsApi();
+            setLogs(data);
+        })();
+    }, []);
+
     return (<ScrollView horizontal={true} contentContainerStyle={{ flex: 1 }}>
         <Table className="w-full">
 
@@ -26,7 +43,7 @@ export default function LogStream({ logs }: { logs: LogType[] }) {
             }
 
             <TableBody>
-                { 
+                { logs &&
                     logs.map(({ time, action, source_ip, session_id }) => {
                         return (
                             <TableRow key={uuid.v4()}>

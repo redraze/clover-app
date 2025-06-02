@@ -1,4 +1,4 @@
-import { FreeTowerType, TokenType } from "@/types/types";
+import { FreeTowerType, LogType, TokenType } from "@/types/types";
 import { towers } from '@/dummyData/towers.json';
 import { contracts } from '@/dummyData/contracts.json';
 import { useEffect, useState } from "react";
@@ -14,6 +14,8 @@ import {
 import { Button, ButtonText } from "@/components/ui/button"
 import uuid from 'react-native-uuid';
 import { ScrollView } from "react-native";
+import { formatLogEvent } from "@/lib/logger";
+import { useLogsContext } from "@/state/LogsContext";
 
 const callContractTowersApi = async (token: TokenType) => {
     const towerData: FreeTowerType = {};
@@ -41,6 +43,7 @@ const callContractTowersApi = async (token: TokenType) => {
 
 export default function FreeTowers() {
     const token = useSessionContext((state: any) => state.token);
+    const pushLog = useLogsContext((state: any) => state.pushLog);
 
     const [freeTowers, setFreeTowers] = useState<FreeTowerType>();
     
@@ -50,6 +53,11 @@ export default function FreeTowers() {
             setFreeTowers(data)
         })();
     }, []);
+
+    const logEvent = (action: string) => {
+        const log = formatLogEvent(action);
+        pushLog(log);
+    };
 
     return (<ScrollView horizontal={true} contentContainerStyle={{ flex: 1 }}>
         <Table className="w-full">
@@ -72,7 +80,7 @@ export default function FreeTowers() {
                                 <TableData style={{ margin: 'auto' }}>{region}</TableData>
                                 <TableData style={{ margin: 'auto' }}>{state}</TableData>
                                 <TableData>
-                                    <ContractButton id={id} />
+                                    <ContractButton id={id} region={region} state={state} logEvent={logEvent} />
                                 </TableData>
                             </TableRow>
                         )
@@ -86,14 +94,19 @@ export default function FreeTowers() {
     </ScrollView>);
 };
 
-function ContractButton({ id }: any) {
+function ContractButton({ id, region, state, logEvent }: any) {
     const [text, setText] = useState('Start Contract');
     const [disabled, setDisabled] = useState(false)
 
-    const sendRequest = () => {
+    const sendRequest = async () => {
+        // TODO: conditionally call mutation API based on role
+
         // await sendTowerContractRequestAPI(id);
         setText('Request Sent!');
         setDisabled(true);
+
+        // update local logs cache
+        logEvent(`Contract requested with tower { id: ${id}, region: ${region}, state: ${state}}`)
     };
 
     return (

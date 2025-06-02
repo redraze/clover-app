@@ -1,20 +1,23 @@
-import { ContractedTowerType, TokenType } from "@/types/types";
 import { useEffect, useState } from "react";
-import { useSessionContext } from "@/state/SessionContext";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableData,
-} from "@/components/ui/table"
-import { Pressable, ScrollView, Text, View } from "react-native";
-import Switch from "./Switch";
 import uuid from 'react-native-uuid';
+import { useSessionContext } from "@/state/SessionContext";
+import { callContractTowersAPI } from "@/lib/requests";
 import { formatLogEvent } from "@/lib/logger";
 import { useLogsContext } from "@/state/LogsContext";
-import { callContractTowersAPI } from "@/lib/requests";
+
+import { ScrollView } from "react-native";
+import {
+    Table,
+    TableHeader,
+    TableBody,
+    TableHead,
+    TableRow,
+    TableData,
+} from "@/components/ui/table"
+import OSToggle from "./OSToggle";
+
+import { ContractedTowerType, TokenType } from "@/types/types";
+
 
 export default function ContractedTowers() {
     const token: TokenType = useSessionContext((state: any) => state.token);
@@ -93,21 +96,3 @@ export default function ContractedTowers() {
         </Table>
     </ScrollView>);
 };
-
-function OSToggle({ initialValue, onToggle, OS, id, region, state}: any) {
-    const [value, setValue] = useState(initialValue);
-
-    const onPress = () => {
-        onToggle(OS, value, id, region, state);
-        setValue(!value);
-    }
-
-    return (
-        <View style={{ flexDirection: 'row', marginBottom: 10, alignItems: 'center' }} key={uuid.v4()}>
-            <Pressable onPress={onPress}>
-                <Switch defaultValue={value} />
-            </Pressable>
-            <Text style={{ marginLeft: 10 }}>{OS}</Text>
-        </View>
-    )
-}

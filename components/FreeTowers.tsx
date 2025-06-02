@@ -1,20 +1,23 @@
-import { FreeTowerType, TokenType } from "@/types/types";
 import { useEffect, useState } from "react";
-import { useSessionContext } from "@/state/SessionContext";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableData,
-} from "@/components/ui/table"
-import { Button, ButtonText } from "@/components/ui/button"
 import uuid from 'react-native-uuid';
-import { ScrollView } from "react-native";
-import { formatLogEvent } from "@/lib/logger";
 import { useLogsContext } from "@/state/LogsContext";
 import { callFreeTowersAPI } from "@/lib/requests";
+import { useSessionContext } from "@/state/SessionContext";
+import { formatLogEvent } from "@/lib/logger";
+
+import { ScrollView } from "react-native";
+import {
+    Table,
+    TableHeader,
+    TableBody,
+    TableHead,
+    TableRow,
+    TableData,
+} from "@/components/ui/table"
+import ContractButton from "./ContractButton";
+
+import { FreeTowerType } from "@/types/types";
+
 
 export default function FreeTowers() {
     const token = useSessionContext((state: any) => state.token);
@@ -25,7 +28,7 @@ export default function FreeTowers() {
     useEffect(() => {
         (async () => {
             const { data } = await callFreeTowersAPI(token);
-            setFreeTowers(data)
+            setFreeTowers(data);
         })();
     }, []);
 
@@ -67,27 +70,4 @@ export default function FreeTowers() {
             </TableBody>
         </Table>
     </ScrollView>);
-};
-
-function ContractButton({ id, region, state, logEvent }: any) {
-    const token: TokenType = useSessionContext((state: any) => state.token);
-    const [text, setText] = useState('Start Contract');
-    const [disabled, setDisabled] = useState(false)
-
-    const sendRequest = async () => {
-        if (token.role !== 'admin') return;
-
-        // await sendTowerContractRequestAPI(id);
-        setText('Request Sent!');
-        setDisabled(true);
-
-        // update local logs cache
-        logEvent(`Contract requested with tower { id: ${id}, region: ${region}, state: ${state}}`)
-    };
-
-    return (
-        <Button size="md" variant={ disabled ? "solid" : "outline"} action="primary" onPress={sendRequest} disabled={disabled}>
-            <ButtonText>{text}</ButtonText>
-        </Button>
-    );
 };

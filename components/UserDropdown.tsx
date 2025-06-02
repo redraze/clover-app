@@ -1,3 +1,5 @@
+import uuid from 'react-native-uuid';
+import { Platform, View } from "react-native";
 import {
     Select,
     SelectTrigger,
@@ -11,17 +13,16 @@ import {
     SelectItem 
 } from "@/components/ui/select";
 import { ChevronDownIcon } from "@/components/ui/icon"
-import { Platform, View } from "react-native";
 import { logins } from '@/dummyData/logins.json';
-import uuid from 'react-native-uuid';
 
 const web = Platform.OS === 'web';
+
 
 export function UserDrowpdown({ setUser, formState }: any) {
     const onValueChange = (e: string) => {
         const user = JSON.parse(e);
         setUser(user);
-    }
+    };
 
     return (
         <Select onValueChange={onValueChange} isDisabled={formState === 'signup'}>
@@ -56,4 +57,4 @@ export function UserDrowpdown({ setUser, formState }: any) {
             </SelectPortal>
         </Select>
     );
-}
+};

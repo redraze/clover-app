@@ -1,19 +1,13 @@
 import { useState } from 'react';
-import AuthForm from '@/components/AuthForm';
-import { Image, Text, View } from 'react-native';
 import { useToast, Toast, ToastDescription } from "@/components/ui/toast";
-import { UserType } from '@/types/types';
-import { useSessionContext } from '@/state/SessionContext';
-import { callLoginAPI } from '@/lib/requests';
-	
-type FormType = 'login' | 'signup';
+
+import AuthForm from '@/components/AuthForm';
+import BackSplash from '@/components/BackSplash';
+
 
 export default function AuthScreen() {
-  const signIn = useSessionContext((state: any) => state.signIn);
-
-  const [user, setUser] = useState<UserType | undefined>();
-  const [formState, setFormState] = useState<FormType>('login');
-
+  // gluestack UI lib toast 
+  // https://gluestack.io/ui/docs/components/toast
   const toast = useToast();
   const [toastId, setToastId] = useState(0);
   const handleToast = (msg: string) => {
@@ -22,7 +16,6 @@ export default function AuthScreen() {
           showNewToast(msg);
       }
   };
-  
   const showNewToast = (msg: string) => {
     const newId = Math.random();
     setToastId(newId);
@@ -42,43 +35,8 @@ export default function AuthScreen() {
     });
   }
 
-  const onSubmit = async () => {
-    // disable signup
-    if (formState === 'signup') {
-      handleToast('Registration unavailable.');
-      return;
-    };
-
-    // form validation
-    if (!user) {
-      handleToast('Please select a login.');
-      return;
-    };
-
-    const { data } = await callLoginAPI(user);
-    if (!data) return;
-    // store token in local cache
-    signIn(data.token);
-  }
-
   return (<>
-    {/* backsplash */}
-    <View style={{ height: 250, width: '100%' }}>
-      <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: 'auto' }}>
-        <View style={{ margin: 'auto' }}>
-          <Image 
-            style={{ height: 80, width: 80 }}
-            source={require('@/assets/tower.png')}
-          />
-        </View>
-
-        <Text style={{ fontSize: 35, marginLeft: 20, marginVertical: 'auto' }}>Tower Comm</Text>
-      </View>
-    </View>
-
-    {/* form */}
-    <View style={{ marginHorizontal: 'auto', flex: 1, width: 300 }}>
-      <AuthForm setUser={setUser} formState={formState} setFormState={setFormState} onSubmit={onSubmit} />
-    </View>
-  </>)
-}
+    <BackSplash />
+    <AuthForm handleToast={handleToast}/>
+  </>);
+};

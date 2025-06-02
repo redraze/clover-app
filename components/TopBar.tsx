@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSessionContext } from '@/state/SessionContext';
-import { TokenType } from '@/types/types';
-import { Button, ButtonText } from '@/components/ui/button';
+
 import { Image, Platform, StyleSheet, Text, View } from 'react-native';
+import { Button, ButtonText } from '@/components/ui/button';
 import { Icon, SettingsIcon } from "@/components/ui/icon"
 import { Popover, PopoverBackdrop, PopoverBody, PopoverContent } from "@/components/ui/popover";
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { TokenType } from '@/types/types';
 
 const web = Platform.OS === 'web';
+
 
 export function TopBar() {
     const insets = useSafeAreaInsets();

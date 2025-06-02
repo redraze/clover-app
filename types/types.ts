@@ -1,3 +1,5 @@
+export type FormType = 'login' | 'signup';
+
 export type UserType = {
   name: string,
   enterprise: string,

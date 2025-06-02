@@ -1,3 +1,9 @@
+import { useEffect } from "react";
+import uuid from 'react-native-uuid';
+import { useLogsContext } from "@/state/LogsContext";
+import { callLogsAPI } from "@/lib/requests";
+
+import { ScrollView } from "react-native";
 import {
   Table,
   TableHeader,
@@ -6,12 +12,9 @@ import {
   TableRow,
   TableData,
 } from "@/components/ui/table"
-import uuid from 'react-native-uuid';
-import { ScrollView } from "react-native";
-import { useEffect } from "react";
-import { useLogsContext } from "@/state/LogsContext";
+
 import { LogType } from "@/types/types";
-import { callLogsAPI } from "@/lib/requests";
+
 
 export default function LogStream() {
     const logs: LogType[] = useLogsContext((state: any) => state.logs);

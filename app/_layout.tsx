@@ -1,15 +1,17 @@
+import { useEffect } from 'react';
+import { useSessionContext } from '@/state/SessionContext';
+import { Platform } from 'react-native';
+
+import 'react-native-reanimated';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-import { Platform } from 'react-native';
 import { GluestackUIProvider as GlueNative } from '@/components/ui/gluestack-ui-provider';
 import { GluestackUIProvider as GlueWeb } from '@/components/ui/gluestack-ui-provider/index.web';
-import "../global.css";
-import { useEffect } from 'react';
 import SplashScreen from '@/components/SplashScreen';
-import { useSessionContext } from '@/state/SessionContext';
+import "../global.css";
 
 const GlueStackUIProvider = Platform.OS === 'web' ? GlueWeb : GlueNative
+
 
 export default function RootLayout() {
   const token = useSessionContext((state: any) => state.token);

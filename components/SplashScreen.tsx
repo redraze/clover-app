@@ -5,7 +5,7 @@ import { Image, View } from "react-native";
 export default function SplashScreen() {
     return (
         <Box className="gap-2" style={{ flex: 1 }} >
-            <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: 100, alignItems: 'center' }}>
+            <View style={{ flex: 1, flexDirection: 'row', marginHorizontal: 20, alignItems: 'center' }}>
                 <Skeleton variant="rounded" style={{ backgroundColor: 'grey', flex: 1, margin: 10, height: 30, width: 30 }} />
                 <Skeleton variant="rounded" style={{ backgroundColor: 'grey', flex: 1, margin: 10, height: 30, width: 30 }} />
                 <View style={{ margin: 'auto' }}>

@@ -13,6 +13,7 @@ import {
 import { ChevronDownIcon } from "@/components/ui/icon"
 import { Platform, View } from "react-native";
 import data from '@/dummyData/logins.json';
+import uuid from 'react-native-uuid';
 
 const web = Platform.OS === 'web';
 
@@ -44,17 +45,13 @@ export function UserDrowpdown({ setUser, formState }: any) {
                         data.logins.map(({ user, name, role }) => {
                             return (
                                 <SelectItem 
+                                    key={uuid.v4()}
                                     label={user} 
                                     value={`{"name":"${name}", "role":"${role}"}`} 
                                 />
                             );
                         })
                     }
-
-                    {/* <SelectItem label="AT&T (admin)" value={'{"name":"at&t", "role":"admin"}'} />
-                    <SelectItem label="AT&T (non-admin)" value={'{"name":"at&t", "role":"non-admin"}'} />
-                    <SelectItem label="Verizon (admin)" value={'{"name":"verizon", "role":"admin"}'} />
-                    <SelectItem label="T-Mobile (non-admin)" value={'{"name":"t-mobile", "role":"non-admin"}'} /> */}
                 </SelectContent>
             </SelectPortal>
         </Select>

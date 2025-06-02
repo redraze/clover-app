@@ -1,8 +1,13 @@
 # Welcome to Tower Comm 👋
 
 This app is built with:
-- [Expo](https://expo.dev)
-- the [GlueStack UI](https://gluestack.io/) component library
+- [Expo](https://expo.dev) framework
+- [GlueStack UI](https://gluestack.io/) component library
+- [Zustand](https://zustand.docs.pmnd.rs/getting-started/introduction) state manager
+
+## Prerequisites
+- [node](https://nodejs.org/en)
+- [npm](https://www.npmjs.com/)
 
 ## Getting started
 
@@ -24,7 +29,7 @@ This app is built with:
 
 - [Better-Auth](https://www.better-auth.com/) for setting **auth cookies** and **handling sessions**
 - [TanStack Query](https://tanstack.com/query/latest) for **caching query results** results and possibly queueing **offline mutations**
-- An interactive map that can filter for towers that the user is and is not contracted with. Clicking on a tower on the map pops up: 
-   - the OS throttler for that tower if contracted, or 
-   - a form to begin a contract witt that tower if uncontracted
-   - able to set access (future) periods for OS on specific towers
+- An interactive map that can filter for towers that the user is and is not contracted with. Clicking on a tower on the map allows: 
+   - throttling OS for that tower if contracted
+   - set access (future) periods for OS on specific towers if contracted
+   - a form to begin a contract with that tower if uncontracted

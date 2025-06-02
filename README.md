@@ -27,3 +27,4 @@ This app is built with:
 - An interactive map that can filter for towers that the user is and is not contracted with. Clicking on a tower on the map pops up: 
    - the OS throttler for that tower if contracted, or 
    - a form to begin a contract witt that tower if uncontracted
+   - able to set access (future) periods for OS on specific towers

@@ -20,6 +20,13 @@ export type ContractType = {
   allowedOS: string[],
 };
 
+export type FreeTowerType = {
+  [id: number]: {
+    region: string,
+    state: string,
+  },
+}
+
 export type ContractedTowerType = {
   [id: number]: {
     allowedOS: {

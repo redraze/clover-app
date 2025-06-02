@@ -51,7 +51,6 @@ export default function ContractedTowers() {
         })();
     }, []);
 
-    // when contracted tower is selected, pops up OS selection modal
     return (<>
         <Table className="w-full">
 

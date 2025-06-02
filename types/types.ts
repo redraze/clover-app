@@ -21,14 +21,14 @@ export type ContractType = {
 };
 
 export type FreeTowerType = {
-  [id: number]: {
+  [tower_id: number]: {
     region: string,
     state: string,
   },
 }
 
 export type ContractedTowerType = {
-  [id: number]: {
+  [tower_id: number]: {
     allowedOS: {
       [OS: string]: boolean,
     },

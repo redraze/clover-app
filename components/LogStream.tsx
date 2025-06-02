@@ -8,14 +8,10 @@ import {
 } from "@/components/ui/table"
 import uuid from 'react-native-uuid';
 import { ScrollView } from "react-native";
-import { logs } from '@/dummyData/logs.json';
 import { useEffect } from "react";
 import { useLogsContext } from "@/state/LogsContext";
 import { LogType } from "@/types/types";
-
-const callLogsApi = async () => {
-    return { data: logs }
-};
+import { callLogsAPI } from "@/lib/requests";
 
 export default function LogStream() {
     const logs: LogType[] = useLogsContext((state: any) => state.logs);
@@ -23,7 +19,7 @@ export default function LogStream() {
 
     useEffect(() => {
         (async () => {
-            const { data } = await callLogsApi();
+            const { data } = await callLogsAPI();
             setLogs(data);
         })();
     }, []);

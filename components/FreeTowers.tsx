@@ -1,6 +1,4 @@
-import { FreeTowerType, LogType, TokenType } from "@/types/types";
-import { towers } from '@/dummyData/towers.json';
-import { contracts } from '@/dummyData/contracts.json';
+import { FreeTowerType, TokenType } from "@/types/types";
 import { useEffect, useState } from "react";
 import { useSessionContext } from "@/state/SessionContext";
 import {
@@ -16,30 +14,7 @@ import uuid from 'react-native-uuid';
 import { ScrollView } from "react-native";
 import { formatLogEvent } from "@/lib/logger";
 import { useLogsContext } from "@/state/LogsContext";
-
-const callContractTowersApi = async (token: TokenType) => {
-    const towerData: FreeTowerType = {};
-
-    contracts.forEach(({ enterprise_id, tower_id }) => {
-        if (token.enterprise_id === enterprise_id) {
-            towerData[tower_id] = { 
-                ...towerData[tower_id],
-            };
-        };
-    });
-
-    towers.forEach(({ id, region, state }) => {
-        if (id !in towerData) {
-            towerData[id] = {
-                ...towerData[id],
-                region,
-                state,
-            }
-        }
-    })
-
-    return { data: towerData }
-};
+import { callFreeTowersAPI } from "@/lib/requests";
 
 export default function FreeTowers() {
     const token = useSessionContext((state: any) => state.token);
@@ -49,7 +24,7 @@ export default function FreeTowers() {
     
     useEffect(() => {
         (async () => {
-            const { data } = await callContractTowersApi(token);
+            const { data } = await callFreeTowersAPI(token);
             setFreeTowers(data)
         })();
     }, []);

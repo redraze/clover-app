@@ -1,6 +1,4 @@
 import { ContractedTowerType, TokenType } from "@/types/types";
-import { towers } from '@/dummyData/towers.json';
-import { contracts } from '@/dummyData/contracts.json';
 import { useEffect, useState } from "react";
 import { useSessionContext } from "@/state/SessionContext";
 import {
@@ -16,31 +14,7 @@ import Switch from "./Switch";
 import uuid from 'react-native-uuid';
 import { formatLogEvent } from "@/lib/logger";
 import { useLogsContext } from "@/state/LogsContext";
-
-const callContractTowersApi = async (token: TokenType) => {
-    const towerData: ContractedTowerType = {};
-
-    contracts.forEach(({ enterprise_id, tower_id, allowedOS }) => {
-        if (token.enterprise_id === enterprise_id) {
-            towerData[tower_id] = { 
-                ...towerData[tower_id],
-                allowedOS,
-            };
-        };
-    });
-
-    towers.forEach(({ id, region, state }) => {
-        if (id in towerData) {
-            towerData[id] = {
-                ...towerData[id],
-                region,
-                state,
-            }
-        }
-    })
-
-    return { data: towerData }
-};
+import { callContractTowersAPI } from "@/lib/requests";
 
 export default function ContractedTowers() {
     const token: TokenType = useSessionContext((state: any) => state.token);
@@ -50,7 +24,7 @@ export default function ContractedTowers() {
     
     useEffect(() => {
         (async () => {
-            const { data } = await callContractTowersApi(token);
+            const { data } = await callContractTowersAPI(token);
             setContractedTowers(data)
         })();
     }, []);
@@ -96,6 +70,7 @@ export default function ContractedTowers() {
                                             const allowed = allowedOS[OS];
                                             return (
                                                 <OSToggle
+                                                    key={uuid.v4()}
                                                     initialValue={allowed}
                                                     onToggle={onToggle}
                                                     OS={OS}

@@ -95,11 +95,12 @@ export default function FreeTowers() {
 };
 
 function ContractButton({ id, region, state, logEvent }: any) {
+    const token: TokenType = useSessionContext((state: any) => state.token);
     const [text, setText] = useState('Start Contract');
     const [disabled, setDisabled] = useState(false)
 
     const sendRequest = async () => {
-        // TODO: conditionally call mutation API based on role
+        if (token.role !== 'admin') return;
 
         // await sendTowerContractRequestAPI(id);
         setText('Request Sent!');

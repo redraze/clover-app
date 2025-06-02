@@ -1,4 +1,4 @@
-import { ContractedTowerType, LogType, TokenType } from "@/types/types";
+import { ContractedTowerType, TokenType } from "@/types/types";
 import { towers } from '@/dummyData/towers.json';
 import { contracts } from '@/dummyData/contracts.json';
 import { useEffect, useState } from "react";
@@ -43,7 +43,7 @@ const callContractTowersApi = async (token: TokenType) => {
 };
 
 export default function ContractedTowers() {
-    const token = useSessionContext((state: any) => state.token);
+    const token: TokenType = useSessionContext((state: any) => state.token);
     const pushLog = useLogsContext((state: any) => state.pushLog);
 
     const [contractedTowers, setContractedTowers] = useState<ContractedTowerType>();
@@ -55,14 +55,15 @@ export default function ContractedTowers() {
         })();
     }, []);
 
+    // mutate local log state
     const logEvent = (action: string) => {
         const log = formatLogEvent(action);
         pushLog(log);
     };
 
     const onToggle = async (OS: string, value: boolean, id: string, region: string, state: string) => {
-        // TODO: conditionally call mutation API based on role
-        // await callTowerOSAccessAPI({ ... });
+        if (token.role !== 'admin') return;
+        // await callTowerOSAccessAPI({ token, ... });
 
         // update local logs cache
         const status = value ? 'disabled' : 'enabled';

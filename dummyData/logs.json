@@ -1,7 +1,40 @@
 {
     "logs": [
         {
-            "TODO": true
+            "time": "2025-06-02T1:31",
+            "action": "enable web on tower [id]",
+            "source_ip": "x.x.x.x",
+            "session_id": "xxx-xxx-xxx-xxx"
+        },
+        {
+            "time": "2025-06-02T12:12",
+            "action": "disable andoird on tower [id]",
+            "source_ip": "x.x.x.x",
+            "session_id": "xxx-xxx-xxx-xxx"
+        },
+        {
+            "time": "2025-06-02T12:04",
+            "action": "disable iOS on tower [id]",
+            "source_ip": "x.x.x.x",
+            "session_id": "xxx-xxx-xxx-xxx"
+        },
+        {
+            "time": "2025-06-01T20:42",
+            "action": "enable android on tower [id]",
+            "source_ip": "x.x.x.x",
+            "session_id": "xxx-xxx-xxx-xxx"
+        },
+        {
+            "time": "2025-06-01T18:21",
+            "action": "disable web on tower [id]",
+            "source_ip": "x.x.x.x",
+            "session_id": "xxx-xxx-xxx-xxx"
+        },
+        {
+            "time": "2025-06-01T18:15",
+            "action": "enable iOS on tower [id]",
+            "source_ip": "x.x.x.x",
+            "session_id": "xxx-xxx-xxx-xxx"
         }
     ]
 }

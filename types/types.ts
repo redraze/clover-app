@@ -36,3 +36,10 @@ export type ContractedTowerType = {
     state: string,
   },
 };
+
+export type LogType = {
+  time: string,
+  action: string,
+  source_ip: string,
+  session_id: string,
+};

@@ -24,3 +24,6 @@ This app is built with:
 
 - [Better-Auth](https://www.better-auth.com/) for setting **auth cookies** and **handling sessions**
 - [TanStack Query](https://tanstack.com/query/latest) for **caching query results** results and possibly queueing **offline mutations**
+- An interactive map that can filter for towers that the user is and is not contracted with. Clicking on a tower on the map pops up: 
+   - the OS throttler for that tower if contracted, or 
+   - a form to begin a contract witt that tower if uncontracted

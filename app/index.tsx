@@ -11,8 +11,9 @@ type FormType = 'login' | 'signup';
 export const callLoginAPI = async (user: UserType) => {
   return {
     token: {
-      id: "xxx-xxx",
+      id: "xxx-xxx", // session id
       name: user.name,
+      enterprise: user.enterprise,
       role: user.role,
     }
   }

@@ -42,12 +42,12 @@ export function UserDrowpdown({ setUser, formState }: any) {
                     </SelectDragIndicatorWrapper>
 
                     {
-                        data.logins.map(({ user, name, role }) => {
+                        data.logins.map(({ name, enterprise, role }) => {
                             return (
                                 <SelectItem 
                                     key={uuid.v4()}
-                                    label={user} 
-                                    value={`{"name":"${name}", "role":"${role}"}`} 
+                                    label={name} 
+                                    value={`{"name":"${name}", "enterprise":"${enterprise}", "role":"${role}"}`} 
                                 />
                             );
                         })

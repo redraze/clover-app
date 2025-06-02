@@ -1,16 +1,15 @@
-import { Button, ButtonText } from '@/components/ui/button';
-import { useSessionContext } from '@/state/SessionContext';
-import { View } from 'react-native';
+import { TopBar } from '@/components/TopBar';
 
 export default function Dashboard() {
-  const signOut = useSessionContext((state: any) => state.signOut);
-  
-  return (
-    <View>
-      This is the dashboard screen
-      <Button size="md" variant="solid" action="primary" onPress={signOut} style={{ marginTop: 15 }}>
-          <ButtonText>Logout</ButtonText>
-      </Button>
-    </View>
-  )
+  return (<>
+    <TopBar />
+
+    {/* contracted towers */}
+    {/* when contracted tower is selected, pops up OS selection modal */}
+
+    {/* available towers */}
+    {/* button to contract with tower */}
+
+    {/* access log stream */}
+  </>)
 }

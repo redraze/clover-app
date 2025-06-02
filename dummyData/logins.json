@@ -1,26 +1,26 @@
 {
     "logins": [
         {
-            "user": "AT&T (admin)",
-            "name": "at&t",
+            "name": "AT&T (admin)",
+            "enterprise": "at&t",
             "role": "admin"
         },
 
         {
-            "user": "AT&T (non-admin)",
-            "name": "at&t",
+            "name": "AT&T (non-admin)",
+            "enterprise": "at&t",
             "role": "non-admin"
         },
 
         {
-            "user": "Verizon (admin)",
-            "name": "verizon",
+            "name": "Verizon (admin)",
+            "enterprise": "verizon",
             "role": "admin"
         },
 
         {
-            "user": "T-Mobile (admin)",
-            "name": "t-mobile",
+            "name": "T-Mobile (admin)",
+            "enterprise": "t-mobile",
             "role": "non-admin"
         }
     ]

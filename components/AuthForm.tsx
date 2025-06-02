@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { callLoginAPI } from '@/lib/requests';
 import { useSessionContext } from '@/state/SessionContext';
+import { useToaster } from '@/state/ToastContext';
 
 import { View } from 'react-native';
 import { Link, LinkText } from "@/components/ui/link"
@@ -11,8 +12,9 @@ import PasswordFields from './PasswordFields';
 import { FormType, UserType } from '@/types/types';
 
 
-export default function AuthForm({ handleToast }: any) {
+export default function AuthForm() {
     const signIn = useSessionContext((state: any) => state.signIn);
+    const toaster = useToaster((state: any) => state.toaster)
 
     const [user, setUser] = useState<UserType | undefined>();
 
@@ -25,13 +27,13 @@ export default function AuthForm({ handleToast }: any) {
     const onSubmit = async () => {
         // disable signup
         if (formState === 'signup') {
-        handleToast('Registration unavailable.');
+        toaster('Registration unavailable.');
         return;
         };
 
         // form validation
         if (!user) {
-        handleToast('Please select a login.');
+        toaster('Please select a login.');
         return;
         };
 

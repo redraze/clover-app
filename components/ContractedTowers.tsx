@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import uuid from 'react-native-uuid';
 import { useSessionContext } from "@/state/SessionContext";
+import { useToaster } from '@/state/ToastContext';
 import { callContractTowersAPI } from "@/lib/requests";
 import { formatLogEvent } from "@/lib/logger";
 import { useLogsContext } from "@/state/LogsContext";
@@ -22,6 +23,7 @@ import { ContractedTowerType, TokenType } from "@/types/types";
 export default function ContractedTowers() {
     const token: TokenType = useSessionContext((state: any) => state.token);
     const pushLog = useLogsContext((state: any) => state.pushLog);
+    const toaster = useToaster((state: any) => state.toaster)
 
     const [contractedTowers, setContractedTowers] = useState<ContractedTowerType>();
     
@@ -39,7 +41,10 @@ export default function ContractedTowers() {
     };
 
     const onToggle = async (OS: string, value: boolean, id: string, region: string, state: string) => {
-        if (token.role !== 'admin') return;
+        if (token.role !== 'admin') {
+            toaster("Insufficient Permissions.");
+            return;
+        };
         // await callTowerOSAccessAPI({ token, ... });
 
         // update local logs cache

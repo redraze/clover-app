@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useSessionContext } from "@/state/SessionContext";
+import { useToaster } from '@/state/ToastContext';
+
 import { Button, ButtonText } from "@/components/ui/button"
 
 import { TokenType } from "@/types/types";
@@ -7,11 +9,16 @@ import { TokenType } from "@/types/types";
 
 export default function ContractButton({ id, region, state, logEvent }: any) {
     const token: TokenType = useSessionContext((state: any) => state.token);
+    const toaster = useToaster((state: any) => state.toaster)
+
     const [text, setText] = useState('Start Contract');
     const [disabled, setDisabled] = useState(false)
 
     const sendRequest = async () => {
-        if (token.role !== 'admin') return;
+        if (token.role !== 'admin') {
+            toaster('Insufficient Permissions.')
+            return;
+        };
 
         // await sendTowerContractRequestAPI(id);
         setText('Request Sent!');

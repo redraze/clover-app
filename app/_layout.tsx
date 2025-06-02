@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSessionContext } from '@/state/SessionContext';
 import { Platform } from 'react-native';
+import Toaster from '@/state/Toaster';
 
 import 'react-native-reanimated';
 import { Stack } from 'expo-router';
@@ -28,20 +29,23 @@ export default function RootLayout() {
   if (loading) return <SplashScreen />
   return (
     <GlueStackUIProvider>
-      <Stack>
+      <Toaster>
 
-        <Stack.Protected guard={!token}>
-          {/* login/signup screen */}
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-        </Stack.Protected>
+        <Stack>
+          <Stack.Protected guard={!token}>
+            {/* login/signup screen */}
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+          </Stack.Protected>
 
-        <Stack.Protected guard={!!token}>
-          {/* dashboard */}
-          <Stack.Screen name="private/index" options={{ headerShown: false }} />
-        </Stack.Protected>
-      </Stack>
+          <Stack.Protected guard={!!token}>
+            {/* dashboard */}
+            <Stack.Screen name="private/index" options={{ headerShown: false }} />
+          </Stack.Protected>
+        </Stack>
 
-      <StatusBar style="auto" />
+        <StatusBar style="auto" />
+
+      </Toaster>
     </GlueStackUIProvider>
   );
 }

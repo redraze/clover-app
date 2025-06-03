@@ -19,7 +19,6 @@ export default function OSToggle({ initialValue, OS, id, region, state }: any) {
     const [value, setValue] = useState(initialValue);
 
     const onToggle = async () => {
-        console.log(OS)
         if (token.role !== 'admin') {
             toaster("Insufficient Permissions.");
             return;

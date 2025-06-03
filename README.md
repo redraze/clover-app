@@ -60,8 +60,8 @@ The following API endpoints are protected and must be made with a valid session 
 
 ## Future Improvements/Ideas
 
+- [TanStack Query](https://tanstack.com/query/latest) for **loading state**, **caching query results** results, and possibly queuing **offline mutations**
 - [Better-Auth](https://www.better-auth.com/) for setting **auth cookies** and **handling sessions**
-- [TanStack Query](https://tanstack.com/query/latest) for **caching query results** results and possibly queuing **offline mutations**
 - An interactive map that can filter for towers that the user is and is not contracted with. Clicking on a tower on the map allows: 
    - throttling OS for that tower if contracted
    - set access or access periods for OS on specific towers if contracted

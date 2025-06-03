@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useToaster } from "./ToastContext";
 
 import {
@@ -24,7 +24,6 @@ export default function Toaster({ children }: any) {
             showNewToast(msg)
         }
     };
-    setToaster(handleToast);
 
     const showNewToast = (msg: string) => {
         const newId = Math.random()
@@ -44,6 +43,10 @@ export default function Toaster({ children }: any) {
             },
         })
     };
+
+    useEffect(() => {
+        setToaster(handleToast);
+    }, [])
 
     return children
 }

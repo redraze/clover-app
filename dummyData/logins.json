@@ -21,7 +21,7 @@
         {
             "name": "T-Mobile (admin)",
             "enterprise": "t-mobile",
-            "role": "non-admin"
+            "role": "admin"
         }
     ]
 }

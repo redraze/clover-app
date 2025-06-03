@@ -3,7 +3,7 @@ import uuid from 'react-native-uuid';
 import { useLogsContext } from "@/state/LogsContext";
 import { callLogsAPI } from "@/lib/requests";
 
-import { ScrollView } from "react-native";
+import { Platform, ScrollView } from "react-native";
 import {
   Table,
   TableHeader,
@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/table"
 
 import { LogType } from "@/types/types";
+
+const web = Platform.OS === 'web';
 
 
 export default function LogStream() {
@@ -27,7 +29,7 @@ export default function LogStream() {
         })();
     }, []);
 
-    return (<ScrollView horizontal={true} contentContainerStyle={{ flex: 1 }}>
+    return (<ScrollView horizontal={true} contentContainerStyle={ web && { width: '100%' }}>
         <Table className="w-full">
 
             { logs && 

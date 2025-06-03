@@ -5,7 +5,7 @@ import { callFreeTowersAPI } from "@/lib/requests";
 import { useSessionContext } from "@/state/SessionContext";
 import { formatLogEvent } from "@/lib/logger";
 
-import { ScrollView } from "react-native";
+import { Platform, ScrollView } from "react-native";
 import {
     Table,
     TableHeader,
@@ -17,6 +17,8 @@ import {
 import ContractButton from "./ContractButton";
 
 import { FreeTowerType } from "@/types/types";
+
+const web = Platform.OS === 'web';
 
 
 export default function FreeTowers() {
@@ -37,10 +39,10 @@ export default function FreeTowers() {
         pushLog(log);
     };
 
-    return (<ScrollView horizontal={true} contentContainerStyle={{ flex: 1 }}>
-        <Table className="w-full">
+    return (
+        <ScrollView horizontal={true} contentContainerStyle={ web && { flex: 1 } }>
+            <Table className="w-full">
 
-            { freeTowers && 
                 <TableHeader>
                     <TableRow>
                         <TableHead>Region</TableHead>
@@ -48,26 +50,28 @@ export default function FreeTowers() {
                         <TableHead>Contract Status</TableHead>
                     </TableRow>
                 </TableHeader>
-            }
 
-            <TableBody>
-                { freeTowers
-                    ? Object.entries(freeTowers).map(([ id, { region, state } ]) => {
-                        return (
-                            <TableRow key={uuid.v4()}>
-                                <TableData style={{ margin: 'auto' }}>{region}</TableData>
-                                <TableData style={{ margin: 'auto' }}>{state}</TableData>
-                                <TableData>
-                                    <ContractButton id={id} region={region} state={state} logEvent={logEvent} />
-                                </TableData>
-                            </TableRow>
-                        )
-                    })
-                    : <TableRow>
-                        <TableData>No Free Towers</TableData>
-                    </TableRow>
-                }
-            </TableBody>
-        </Table>
-    </ScrollView>);
+                <TableBody>
+                    { freeTowers
+                        ? Object.entries(freeTowers).map(([ id, { region, state } ]) => {
+                            return (
+                                <TableRow key={uuid.v4()}>
+                                    <TableData style={{ margin: 'auto' }}>{region}</TableData>
+                                    <TableData style={{ margin: 'auto' }}>{state}</TableData>
+                                    <TableData>
+                                        <ContractButton id={id} region={region} state={state} logEvent={logEvent} />
+                                    </TableData>
+                                </TableRow>
+                            )
+                        })
+                        : <TableRow>
+                            <TableData>No Free Towers</TableData>
+                            <TableData>No Free Towers</TableData>
+                            <TableData>No Free Towers</TableData>
+                        </TableRow>
+                    }
+                </TableBody>
+            </Table>
+        </ScrollView>
+    );
 };

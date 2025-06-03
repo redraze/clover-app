@@ -3,7 +3,7 @@ import uuid from 'react-native-uuid';
 import { useSessionContext } from "@/state/SessionContext";
 import { callContractTowersAPI } from "@/lib/requests";
 
-import { ScrollView } from "react-native";
+import { Platform, ScrollView } from "react-native";
 import {
     Table,
     TableHeader,
@@ -15,6 +15,8 @@ import {
 import OSToggle from "./OSToggle";
 
 import { ContractedTowerType, TokenType } from "@/types/types";
+
+const web = Platform.OS === 'web';
 
 
 export default function ContractedTowers() {
@@ -29,18 +31,16 @@ export default function ContractedTowers() {
         })();
     }, []);
 
-    return (<ScrollView horizontal={true} contentContainerStyle={{ flex: 1 }}>
+    return (<ScrollView horizontal={true} contentContainerStyle={ web && { flex: 1 } }>
         <Table className="w-full">
 
-            { contractedTowers && 
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Region</TableHead>
-                        <TableHead>State</TableHead>
-                        <TableHead>OS Access</TableHead>
-                    </TableRow>
-                </TableHeader>
-            }
+            <TableHeader>
+                <TableRow>
+                    <TableHead>Region</TableHead>
+                    <TableHead>State</TableHead>
+                    <TableHead>OS Access</TableHead>
+                </TableRow>
+            </TableHeader>
 
             <TableBody>
                 { contractedTowers
